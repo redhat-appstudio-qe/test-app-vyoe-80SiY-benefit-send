@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app.kubernetes.io/created-by: application-service
+    app.kubernetes.io/instance: test-component-mfvl
+    app.kubernetes.io/managed-by: kustomize
+    app.kubernetes.io/name: test-component-mfvl
+    app.kubernetes.io/part-of: test-app-vyoe
+  name: test-component-mfvl
+  namespace: build-e2e-nzbb-tenant
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: python-app
+      app.kubernetes.io/instance: test-component-mfvl
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: python-app
+        app.kubernetes.io/instance: test-component-mfvl
+    spec:
+      containers:
+      - image: quay.io/redhat-appstudio-qe/test-images:c2732f19414f4b04ab7581c58e65860d
+        name: my-python
+        ports:
+        - containerPort: 8081
+          name: http
+          protocol: TCP
+        resources:
+          limits:
+            cpu: 100m
+            memory: 100Mi
+          requests:
+            cpu: 10m
+            memory: 50Mi
+status: {}
